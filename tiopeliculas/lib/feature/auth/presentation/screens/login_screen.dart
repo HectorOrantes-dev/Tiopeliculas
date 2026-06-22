@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final auth = context.read<AuthProvider>();
     await auth.login(_emailCtrl.text.trim(), _passwordCtrl.text);
     if (!mounted) return;
-    if (auth.state == AuthViewState.error) {
+    if (auth.hasError) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(auth.errorMessage ?? 'Error al iniciar sesión'),
         backgroundColor: Theme.of(context).colorScheme.error,

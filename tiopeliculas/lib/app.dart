@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'core/di/app_di.dart';
 import 'core/theme/app_theme.dart';
 import 'feature/auth/di/auth_di.dart';
 import 'feature/auth/presentation/providers/auth_provider.dart';
@@ -15,15 +14,15 @@ class TioPeliculasApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Inyección de dependencias manual
-    AppDI.tokenStorage; // ensure initialized
+    // Inyección de dependencias manual: cada feature ensambla su grafo
+    // de dependencias en su propio *DI y expone el ViewModel ya cableado.
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthDI.authProvider,
+          create: (_) => AuthDI.createProvider(),
         ),
         ChangeNotifierProvider<PeliculasProvider>(
-          create: (_) => PeliculasDI.peliculasProvider,
+          create: (_) => PeliculasDI.createProvider(),
         ),
       ],
       child: MaterialApp(

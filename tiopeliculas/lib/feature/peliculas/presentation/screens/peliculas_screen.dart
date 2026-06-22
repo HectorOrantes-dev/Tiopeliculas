@@ -110,8 +110,7 @@ class _PeliculasScreenState extends State<PeliculasScreen> {
                 );
               }
 
-              if (provider.state == PeliculasViewState.error &&
-                  provider.peliculas.isEmpty) {
+              if (provider.hasError && provider.peliculas.isEmpty) {
                 return SliverFillRemaining(
                   child: _ErrorView(
                     message: provider.errorMessage ?? 'Error desconocido',
